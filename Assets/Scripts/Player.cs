@@ -2,6 +2,8 @@
 
 public class Player : MonoBehaviour
 {
+    public LayerMask BlockingLayer;
+
     private Rigidbody2D _rb;
 
     // Use this for initialization
@@ -25,13 +27,19 @@ public class Player : MonoBehaviour
     {
         Vector2 start = transform.position;
         Vector2 end = start + new Vector2(xDir, yDir).normalized;
-        _rb.MovePosition(end);
-        CheckIfGameOver();
+
+        RaycastHit2D hit = Physics2D.Linecast(start, end, BlockingLayer);
+
+        if (hit.transform == null)
+        {
+            _rb.MovePosition(end);
+            CheckIfGameOver((int)end.y);
+        }     
     }
 
-    private void CheckIfGameOver()
+    private void CheckIfGameOver(int newY)
     {
-        if ((int)_rb.position.y == 4)
+        if (newY == 4)
             GameManager.instance.GameOver();
     }
 }
