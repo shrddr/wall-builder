@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 24df3ee4c6ef290479dc93009e970e37
-timeCreated: 1489236658
+guid: 60af90623536e154c9f054db013d0e55
+timeCreated: 1489236122
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: boy_girl_0
-    21300002: boy_girl_1
-    21300004: boy_girl_2
-    21300006: boy_girl_3
+    21300000: grass_0
+    21300002: grass_1
+    21300004: grass_2
+    21300006: grass_3
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -40,7 +40,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
@@ -90,7 +90,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: boy_girl_0
+      name: grass_0
       rect:
         serializedVersion: 2
         x: 0
@@ -98,12 +98,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: boy_girl_1
+      name: grass_1
       rect:
         serializedVersion: 2
         x: 32
@@ -111,12 +111,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: boy_girl_2
+      name: grass_2
       rect:
         serializedVersion: 2
         x: 0
@@ -124,12 +124,12 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: boy_girl_3
+      name: grass_3
       rect:
         serializedVersion: 2
         x: 32
@@ -137,7 +137,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
