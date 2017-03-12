@@ -15,7 +15,6 @@ public class PlayerManager : MonoBehaviour
         set
         {
             _activePlayer = value;
-            Debug.LogWarning(_activePlayer.transform.position);
             _activePlayerText.transform.position =  _activePlayer.transform.position;
         }
     }
