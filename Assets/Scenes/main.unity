@@ -150,7 +150,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 15524570}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 1.5, z: 0}
+  m_LocalPosition: {x: 2.5, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 485001252}
   - component: {fileID: 485001251}
   - component: {fileID: 485001250}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,6 +311,8 @@ MonoBehaviour:
   - {fileID: 1025488021490440, guid: f38c0e061c10a0e4fbc25a6b1587abb9, type: 2}
   - {fileID: 1562184286380246, guid: 41aaeacfd9b0de941abf2b6ac765c0a4, type: 2}
   - {fileID: 1744343247609280, guid: 1a44e146601212445943e397a2ca506e, type: 2}
+  BorderTiles:
+  - {fileID: 1339111369093414, guid: 29721bbb4755f024f88298af72294711, type: 2}
   XSize: 5
   YSize: 5
 --- !u!4 &485001252
@@ -407,7 +409,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 764868903}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 2, y: 2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
