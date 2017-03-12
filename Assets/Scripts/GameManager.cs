@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     
     private BoardManager _boardManager;
+    private PlayerManager _playerManager;
+    private ControlsManager _controlsManager;
     private Text _scoreText;
     private int _score;
 
@@ -21,6 +23,8 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         _boardManager = GetComponent<BoardManager>();
+        _playerManager = GetComponent<PlayerManager>();
+        _controlsManager = GetComponent<ControlsManager>();
     }
 
     private void OnLevelLoaded(Scene scene, LoadSceneMode mode)
@@ -33,6 +37,7 @@ public class GameManager : MonoBehaviour
         _scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
         _scoreText.text = "Score: " + _score;
         _boardManager.SetupScene();
+        _playerManager.SetupPlayers();        
     }
 
     public void GameOver()

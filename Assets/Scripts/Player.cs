@@ -12,18 +12,7 @@ public class Player : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-        var h = (int)(Input.GetAxisRaw("Horizontal"));
-        var v = (int)(Input.GetAxisRaw("Vertical"));
-        if (h != 0)
-            v = 0;
-        if (h != 0 || v != 0)
-            Move(h, v);
-    }
-
-    private void Move(int xDir, int yDir)
+    public void Move(int xDir, int yDir)
     {
         Vector2 start = transform.position;
         Vector2 end = start + new Vector2(xDir, yDir).normalized;
