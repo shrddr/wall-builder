@@ -206,6 +206,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0188cfe681d2d3b4db6c5bb79df6d3dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  horizontalWall: {fileID: 1339568134307630, guid: 9742b8af6a012c04e9ec6e3eee2b3da5,
+    type: 2}
+  verticalWall: {fileID: 1339568134307630, guid: 79e2976e80251d445beb1625b4154aad,
+    type: 2}
   FloorTiles:
   - {fileID: 1473905536718566, guid: e34821b234237634bb161f2ccfa38f2a, type: 2}
   - {fileID: 1025488021490440, guid: f38c0e061c10a0e4fbc25a6b1587abb9, type: 2}
@@ -256,6 +260,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d1d2119816f4840874ed92eea82c6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HorizontalDragable: {fileID: 1279360922294404, guid: 6a21bc6873eb41c4d811ecc20fdb5cb5,
+    type: 2}
+  VerticalDragable: {fileID: 1149759032722988, guid: 5fa7fb49b9037054fad0fde6c5003453,
+    type: 2}
 --- !u!1 &727258528
 GameObject:
   m_ObjectHideFlags: 0
