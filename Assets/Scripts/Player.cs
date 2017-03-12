@@ -8,13 +8,19 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D _rb;
     private Collider2D _thisCollider;
-
+    private Animator _animator;
 
     // Use this for initialization
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _thisCollider = GetComponent<Collider2D>();
+        _animator = GetComponent<Animator>();
+    }
+
+    public void Highlight(bool active)
+    {
+        _animator.SetBool("Active", active);
     }
 
     /// <summary>
