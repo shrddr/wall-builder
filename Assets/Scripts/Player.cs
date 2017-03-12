@@ -1,34 +1,59 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     public LayerMask BlockingLayer;
+    public LayerMask PlayerLayer;
 
     private Rigidbody2D _rb;
+    private Collider2D _thisCollider;
+
 
     // Use this for initialization
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _thisCollider = GetComponent<Collider2D>();
     }
 
-    public void Move(int xDir, int yDir)
+    /// <summary>
+    /// Attempts to move with given vector. Returns false if movement blocked.
+    /// </summary>
+    /// <param name="xDir"></param>
+    /// <param name="yDir"></param>
+    /// <returns></returns>
+    public bool AttemptMove(int xDir, int yDir)
     {
+        Debug.ClearDeveloperConsole();
         Vector2 start = transform.position;
-        Vector2 end = start + new Vector2(xDir, yDir).normalized;
+        var endDirNormalized = new Vector2(xDir, yDir).normalized;     
+        Vector2 end = start + endDirNormalized;
 
-        RaycastHit2D hit = Physics2D.Linecast(start, end, BlockingLayer);
-
-        if (hit.transform == null)
+        var hitWallNextToPlayer = Physics2D.Linecast(start, end, BlockingLayer);
+        if (hitWallNextToPlayer.transform == null)
         {
-            _rb.MovePosition(end);
-            CheckIfGameOver((int)end.y);
-        }     
-    }
 
-    private void CheckIfGameOver(int newY)
-    {
-        if (newY == 4)
-            GameManager.instance.GameOver();
+            _thisCollider.enabled = false;
+            var hitPlayerNextToPlayer = Physics2D.Linecast(start, end, PlayerLayer);
+            _thisCollider.enabled = true;
+
+            if (hitPlayerNextToPlayer.transform == null)
+            {
+                _rb.MovePosition(end);
+                return true;
+            }
+
+            var endWithJumpAheadEnemyPlayer = start + new Vector2(endDirNormalized.x * 2, endDirNormalized.y * 2);
+
+            var hitWallNextToEnemyPlayer = Physics2D.Linecast(start, endWithJumpAheadEnemyPlayer, BlockingLayer);
+            if (hitWallNextToEnemyPlayer.transform == null)
+            {
+                _rb.MovePosition(endWithJumpAheadEnemyPlayer);
+                return true;
+            }            
+        }
+
+        return false;
     }
 }

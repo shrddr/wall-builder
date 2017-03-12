@@ -4,6 +4,12 @@ public class ControlsManager : MonoBehaviour
 {
     private Player _activePlayer;
     private bool _keypressEnded = true;
+    private PlayerManager _playerManager;
+
+    public void Initialize()
+    {
+        _playerManager = GetComponent<PlayerManager>();
+    }
 
     public void SetActivePlayer(Player player)
     {
@@ -36,11 +42,7 @@ public class ControlsManager : MonoBehaviour
 
         _keypressEnded = false;
 
-        if (h > 0) h = 1;
-        if (h < 0) h = -1;
-        if (v > 0) v = 1;
-        if (v < 0) v = -1;
-
-        _activePlayer.Move(h, v);       
+        if(_activePlayer.AttemptMove(h, v))  
+            _playerManager.EndPlayerTurn();
     }
 }

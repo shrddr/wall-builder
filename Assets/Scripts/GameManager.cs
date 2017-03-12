@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     {
         _scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
         _scoreText.text = "Score: " + _score;
+        _controlsManager.Initialize();
         _boardManager.SetupScene();
         _playerManager.SetupPlayers();        
     }
