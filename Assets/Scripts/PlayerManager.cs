@@ -6,7 +6,7 @@ public class PlayerManager : MonoBehaviour
     private ControlsManager _controlsManager;
     private Player _player1;
     private Player _player2;
-    private GameObject _activeTextHolder;
+    private GameObject _activePlayerText;
 
     private Player _activePlayer;
     private Player ActivePlayer
@@ -16,7 +16,7 @@ public class PlayerManager : MonoBehaviour
         {
             _activePlayer = value;
             Debug.LogWarning(_activePlayer.transform.position);
-            _activeTextHolder.transform.position =  _activePlayer.transform.position;
+            _activePlayerText.transform.position =  _activePlayer.transform.position;
         }
     }
 
@@ -31,7 +31,7 @@ public class PlayerManager : MonoBehaviour
 
     public void SetupPlayers()
     {
-        _activeTextHolder = GameObject.Find("TextHolder");
+        _activePlayerText = GameObject.Find("ActivePlayerText");
         _controlsManager = GetComponent<ControlsManager>();
 
         var player1Object = Instantiate(Player, Player1StartPosition, Quaternion.identity);
