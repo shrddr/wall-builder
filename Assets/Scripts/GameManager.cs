@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     private int _score;
 
     // Awake is always called before any Start functions
-    void Awake()
+    private void Awake()
     {
         if (instance == null)
             instance = this;
@@ -23,12 +23,12 @@ public class GameManager : MonoBehaviour
         _boardManager = GetComponent<BoardManager>();
     }
 
-    void OnLevelLoaded(Scene scene, LoadSceneMode mode)
+    private void OnLevelLoaded(Scene scene, LoadSceneMode mode)
     {
         InitGame();
     }
 
-    void InitGame()
+    private void InitGame()
     {
         _scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
         _scoreText.text = "Score: " + _score;

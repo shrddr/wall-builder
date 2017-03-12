@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class BoardManager : MonoBehaviour {
 
@@ -8,12 +8,14 @@ public class BoardManager : MonoBehaviour {
     public int YSize = 5;
 
     // Use this for initialization
-    void Start () {
+    private void Start ()
+    {
 		
 	}
 	
 	// Update is called once per frame
-	void Update () {
+    private void Update ()
+    {
 		
 	}
 
