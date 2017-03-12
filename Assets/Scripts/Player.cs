@@ -37,9 +37,8 @@ public class Player : MonoBehaviour
         Vector2 end = start + endDirNormalized;
 
         var hitWallNextToPlayer = Physics2D.Linecast(start, end, BlockingLayer);
-        if (hitWallNextToPlayer.transform == null)
+        if (hitWallNextToPlayer.transform == null || !TargetIsActive(hitWallNextToPlayer))
         {
-
             _thisCollider.enabled = false;
             var hitPlayerNextToPlayer = Physics2D.Linecast(start, end, PlayerLayer);
             _thisCollider.enabled = true;
@@ -53,13 +52,20 @@ public class Player : MonoBehaviour
             var endWithJumpAheadEnemyPlayer = start + new Vector2(endDirNormalized.x * 2, endDirNormalized.y * 2);
 
             var hitWallNextToEnemyPlayer = Physics2D.Linecast(start, endWithJumpAheadEnemyPlayer, BlockingLayer);
-            if (hitWallNextToEnemyPlayer.transform == null)
+            if (hitWallNextToEnemyPlayer.transform == null || !TargetIsActive(hitWallNextToEnemyPlayer))
             {
                 _rb.MovePosition(endWithJumpAheadEnemyPlayer);
                 return true;
-            }            
+            }           
         }
 
         return false;
+    }
+
+    private bool TargetIsActive(RaycastHit2D raycastHit2D)
+    {
+        var target = raycastHit2D.collider.gameObject.GetComponent<WallController>();
+
+        return target == null || target.IsActive;
     }
 }

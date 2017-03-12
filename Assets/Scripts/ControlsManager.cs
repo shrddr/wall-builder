@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Assets.Scripts;
 using UnityEngine;
 
@@ -47,6 +48,8 @@ public class ControlsManager : MonoBehaviour
         var mousePos = Input.mousePosition;
         var objectPos = Camera.main.ScreenToWorldPoint(mousePos);
         _dragableObject = Instantiate(HorizontalDragable, objectPos, Quaternion.identity);
+
+        ShowPlaceholders(WallType.Horizontal);
     }
 
     private void DragVertical()
@@ -55,6 +58,32 @@ public class ControlsManager : MonoBehaviour
         var mousePos = Input.mousePosition;
         var objectPos = Camera.main.ScreenToWorldPoint(mousePos);
         _dragableObject = Instantiate(VerticalDragable, objectPos, Quaternion.identity);
+
+        ShowPlaceholders(WallType.Vertical);
+    }
+
+    private static void ShowPlaceholders(WallType wallType)
+    {
+        var walls = FindObjectsOfType<WallController>()
+            .Where(wall => !wall.IsActive && wall.WallType == wallType)
+            .ToList();
+
+        foreach (var wall in walls)
+        {
+            wall.ShowPlaceholder();
+        }
+    }
+
+    private static void HidePlaceholders()
+    {
+        var walls = FindObjectsOfType<WallController>()
+            .Where(wall => !wall.IsActive)
+            .ToList();
+
+        foreach (var wall in walls)
+        {
+            wall.HidePlaceholder();
+        }
     }
 
     // Use this for initialization
@@ -95,6 +124,7 @@ public class ControlsManager : MonoBehaviour
             HorizontalWallDrag = false;
             VerticalWallDrag = false;
             Destroy(_dragableObject);
+            HidePlaceholders();
         }
     }
 }

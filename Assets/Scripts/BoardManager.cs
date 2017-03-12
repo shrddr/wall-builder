@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using UnityEngine;
 
 public class BoardManager : MonoBehaviour
@@ -47,7 +48,8 @@ public class BoardManager : MonoBehaviour
         {
             for (var y = 0.5; y <= YSize - 1; y++)
             {
-                Instantiate(horizontalWall, new Vector3(x, (float)y, 0), Quaternion.identity);
+                var wall = Instantiate(horizontalWall, new Vector3(x, (float)y, 0), Quaternion.identity);
+                wall.GetComponent<WallController>().WallType = WallType.Horizontal;               
             }
         }
 
@@ -55,7 +57,8 @@ public class BoardManager : MonoBehaviour
         {
             for (var y = 0; y <= YSize - 1; y++)
             {
-                Instantiate(verticalWall, new Vector3((float)x, y, 0), Quaternion.identity);
+                var wall = Instantiate(verticalWall, new Vector3((float)x, y, 0), Quaternion.identity);
+                wall.GetComponent<WallController>().WallType = WallType.Vertical;
             }
         }
     }

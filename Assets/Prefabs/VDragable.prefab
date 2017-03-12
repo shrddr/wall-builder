@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 224036407595101942}
   - component: {fileID: 114675354758646240}
   - component: {fileID: 212373736732929020}
-  - component: {fileID: 61000599720957186}
   m_Layer: 5
   m_Name: VDragable
   m_TagString: Untagged
@@ -29,20 +28,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &61000599720957186
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1149759032722988}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Size: {x: 0.125, y: 2}
 --- !u!114 &114675354758646240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -87,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 2089422481
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d6743720d1fbc35498dc9166c1a8bf61, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!224 &224036407595101942
