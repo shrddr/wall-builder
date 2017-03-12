@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 224084962653502656}
   - component: {fileID: 114043712757877082}
   - component: {fileID: 212587743599797026}
+  - component: {fileID: 61986267104428250}
   m_Layer: 5
   m_Name: HDragable
   m_TagString: Untagged
@@ -28,6 +29,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!61 &61986267104428250
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1279360922294404}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 2, y: 0.125}
 --- !u!114 &114043712757877082
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -39,6 +54,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ebc01fe20271564da4c11201b40c22f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Offset: {x: -32, y: 0}
 --- !u!212 &212587743599797026
 SpriteRenderer:
   m_ObjectHideFlags: 1

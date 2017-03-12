@@ -26,13 +26,6 @@ public class ControlsManager : MonoBehaviour
         _activePlayer = player;
     }
 
-    public void StopDrag()
-    {
-        HorizontalWallDrag = false;
-        VerticalWallDrag = false;
-        Destroy(_dragableObject);
-    }
-
     public void StartDrag(WallType wallType)
     {
         switch (wallType)
@@ -51,13 +44,17 @@ public class ControlsManager : MonoBehaviour
     private void DragHorizontal()
     {
         HorizontalWallDrag = true;
-        _dragableObject = Instantiate(HorizontalDragable, Input.mousePosition, Quaternion.identity);
+        var mousePos = Input.mousePosition;
+        var objectPos = Camera.main.ScreenToWorldPoint(mousePos);
+        _dragableObject = Instantiate(HorizontalDragable, objectPos, Quaternion.identity);
     }
 
     private void DragVertical()
     {
-        VerticalWallDrag = false;
-        _dragableObject = Instantiate(VerticalDragable, Input.mousePosition, Quaternion.identity);
+        VerticalWallDrag = true;
+        var mousePos = Input.mousePosition;
+        var objectPos = Camera.main.ScreenToWorldPoint(mousePos);
+        _dragableObject = Instantiate(VerticalDragable, objectPos, Quaternion.identity);
     }
 
     // Use this for initialization
@@ -68,6 +65,8 @@ public class ControlsManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        TryStopDrag();
+
         var h = (int) Input.GetAxisRaw("Horizontal");
         var v = (int) Input.GetAxisRaw("Vertical");
 
@@ -87,5 +86,15 @@ public class ControlsManager : MonoBehaviour
 
         if (_activePlayer.AttemptMove(h, v))
             _playerManager.EndPlayerTurn();
+    }
+
+    private void TryStopDrag()
+    {
+        if (Input.GetMouseButtonUp(0) && (HorizontalWallDrag || VerticalWallDrag))
+        {
+            HorizontalWallDrag = false;
+            VerticalWallDrag = false;
+            Destroy(_dragableObject);
+        }
     }
 }
