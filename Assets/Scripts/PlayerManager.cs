@@ -36,11 +36,13 @@ public class PlayerManager : MonoBehaviour
         var player1Object = Instantiate(Player, Player1StartPosition, Quaternion.identity);
         var animator1 = player1Object.GetComponent<Animator>();
         animator1.runtimeAnimatorController = Player1Animator;
+        animator1.SetBool("Active", true);
         _player1 = player1Object.GetComponent<Player>();
 
         var player2Object = Instantiate(Player, Player2StartPosition, Quaternion.identity);
         var animator2 = player2Object.GetComponent<Animator>();
         animator2.runtimeAnimatorController = Player2Animator;
+        animator2.SetBool("Active", false);
         _player2 = player2Object.GetComponent<Player>();
 
         ActivePlayer = _player1;
@@ -51,6 +53,12 @@ public class PlayerManager : MonoBehaviour
     {
         ActivePlayer = ActivePlayer == _player1 ? _player2 : _player1;
         _controlsManager.SetActivePlayer(ActivePlayer);
+        _player1.Highlight(ActivePlayer == _player1);
+        _player2.Highlight(ActivePlayer == _player2);
+        if (ActivePlayer == _player1)
+            SoundManager.instance.PlayGirl();
+        else
+            SoundManager.instance.PlayBoy();
     }
 
 	// Use this for initialization
