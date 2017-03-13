@@ -11,9 +11,11 @@ public class WallController : MonoBehaviour
     public Sprite WallActive;
     public Sprite WallPlaceholder;
     public Sprite WallSelected;
+    public Sprite WallDisabled;
 
     public WallType WallType { get; set; }
     public bool IsActive { get; set; }
+    public static WallPair WallsToPlace { get; set; }
 
     // Use this for initialization
     private void Start ()
@@ -30,7 +32,7 @@ public class WallController : MonoBehaviour
         _spriteRenderer.enabled = true;
         _spriteRenderer.sprite = WallPlaceholder;
     }
-
+    
     public void HidePlaceholder()
     {
         _spriteRenderer.enabled = false;        
@@ -48,8 +50,27 @@ public class WallController : MonoBehaviour
         {
             if (WallType == WallType.Horizontal && _controlsManager.HorizontalWallDrag)
             {
+                Vector2 start = transform.position;
+                var endDirNormalized = new Vector2(-1, 0);
+                Vector2 end = start + endDirNormalized;
+
+                _thisCollider.enabled = false;
+                var hitWallNextThis = Physics2D.Linecast(start, end, BlockingLayer);
+                _thisCollider.enabled = true;
+                if (hitWallNextThis.transform != null && !TargetIsActive(hitWallNextThis))
+                {
+                    var pairWall = hitWallNextThis.transform.gameObject;
+                    pairWall.GetComponent<WallController>().Hightlight();
+                    _spriteRenderer.sprite = WallSelected;
+                    WallsToPlace = new WallPair { Wall1 = gameObject, Wall2 = pairWall };
+                }
+                else
+                {
+                    _spriteRenderer.sprite = WallDisabled;
+                    WallsToPlace = null;
+                }
+
                 _spriteRenderer.enabled = true;
-                _spriteRenderer.sprite = WallSelected;
             }
             else if (WallType == WallType.Vertical && _controlsManager.VerticalWallDrag)
             {
@@ -62,11 +83,18 @@ public class WallController : MonoBehaviour
                 _thisCollider.enabled = true;
                 if (hitWallNextThis.transform != null && !TargetIsActive(hitWallNextThis))
                 {
-                    hitWallNextThis.transform.gameObject.GetComponent<WallController>().Hightlight();
+                    var pairWall = hitWallNextThis.transform.gameObject;
+                    pairWall.GetComponent<WallController>().Hightlight();
+                    _spriteRenderer.sprite = WallSelected;
+                    WallsToPlace = new WallPair {Wall1 = gameObject, Wall2 = pairWall};
+                }
+                else
+                {
+                    _spriteRenderer.sprite = WallDisabled;
+                    WallsToPlace = null;
                 }
 
-                _spriteRenderer.enabled = true;
-                _spriteRenderer.sprite = WallSelected;
+                _spriteRenderer.enabled = true;               
             }
             else
             {
@@ -77,6 +105,12 @@ public class WallController : MonoBehaviour
 
     private void OnMouseExit()
     {
+        if (WallsToPlace != null)
+        {
+            WallsToPlace.Wall2.GetComponent<WallController>().ShowPlaceholder();
+            WallsToPlace = null;
+        }
+               
         if (!IsActive)
         {
             if (WallType == WallType.Horizontal && _controlsManager.HorizontalWallDrag)

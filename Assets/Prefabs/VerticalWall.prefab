@@ -73,6 +73,7 @@ MonoBehaviour:
   WallActive: {fileID: 21300000, guid: d6743720d1fbc35498dc9166c1a8bf61, type: 3}
   WallPlaceholder: {fileID: 21300000, guid: 33c05b5d5edcefa4e8a69a5f110e625a, type: 3}
   WallSelected: {fileID: 21300000, guid: 01998dcdeb640b9468ea16d935705fce, type: 3}
+  WallDisabled: {fileID: 21300000, guid: 93592fd6712e7864b9d849652cb48568, type: 3}
 --- !u!212 &212211315653015960
 SpriteRenderer:
   m_ObjectHideFlags: 1
