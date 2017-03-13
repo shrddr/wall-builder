@@ -125,6 +125,14 @@ public class ControlsManager : MonoBehaviour
             VerticalWallDrag = false;
             Destroy(_dragableObject);
             HidePlaceholders();
+
+            if (WallController.WallsToPlace != null)
+            {
+                WallController.WallsToPlace.Wall1.GetComponent<WallController>().ActivateWall();
+                WallController.WallsToPlace.Wall2.GetComponent<WallController>().ActivateWall();
+            }
+
+            _playerManager.EndPlayerTurn();
         }
     }
 }

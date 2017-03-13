@@ -27,6 +27,13 @@ public class WallController : MonoBehaviour
         _spriteRenderer.enabled = false;
     }
 
+    public void ActivateWall()
+    {
+        _spriteRenderer.enabled = true;
+        _spriteRenderer.sprite = WallActive;
+        IsActive = true;
+    }
+
     public void ShowPlaceholder()
     {
         _spriteRenderer.enabled = true;
