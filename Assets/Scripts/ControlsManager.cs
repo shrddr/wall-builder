@@ -130,9 +130,8 @@ public class ControlsManager : MonoBehaviour
             {
                 WallController.WallsToPlace.Wall1.GetComponent<WallController>().ActivateWall();
                 WallController.WallsToPlace.Wall2.GetComponent<WallController>().ActivateWall();
+                _playerManager.EndPlayerTurn();
             }
-
-            _playerManager.EndPlayerTurn();
         }
     }
 }
