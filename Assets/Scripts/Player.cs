@@ -31,7 +31,6 @@ public class Player : MonoBehaviour
     /// <returns></returns>
     public bool AttemptMove(int xDir, int yDir)
     {
-        Debug.ClearDeveloperConsole();
         Vector2 start = transform.position;
         var endDirNormalized = new Vector2(xDir, yDir).normalized;     
         Vector2 end = start + endDirNormalized;

@@ -67,6 +67,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c34f9840019a2d54d8957b8d7ca09d83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BlockingLayer:
+    serializedVersion: 2
+    m_Bits: 256
   WallActive: {fileID: 21300000, guid: 8f75b203466e53940b3647c104da7b40, type: 3}
   WallPlaceholder: {fileID: 21300000, guid: e27d0b230b5ff114b8a8e8f00756762a, type: 3}
   WallSelected: {fileID: 21300000, guid: 2166ca3a83dc0d14baca309da788b283, type: 3}

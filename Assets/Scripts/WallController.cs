@@ -7,6 +7,7 @@ public class WallController : MonoBehaviour
     private Collider2D _thisCollider;
     private SpriteRenderer _spriteRenderer;
 
+    public LayerMask BlockingLayer;
     public Sprite WallActive;
     public Sprite WallPlaceholder;
     public Sprite WallSelected;
@@ -35,6 +36,12 @@ public class WallController : MonoBehaviour
         _spriteRenderer.enabled = false;        
     }
 
+    public void Hightlight()
+    {
+        _spriteRenderer.enabled = true;
+        _spriteRenderer.sprite = WallSelected;
+    }
+
     private void OnMouseEnter()
     {
         if(!IsActive)
@@ -46,6 +53,18 @@ public class WallController : MonoBehaviour
             }
             else if (WallType == WallType.Vertical && _controlsManager.VerticalWallDrag)
             {
+                Vector2 start = transform.position;
+                var endDirNormalized = new Vector2(0, 1);
+                Vector2 end = start + endDirNormalized;
+
+                _thisCollider.enabled = false;
+                var hitWallNextThis = Physics2D.Linecast(start, end, BlockingLayer);
+                _thisCollider.enabled = true;
+                if (hitWallNextThis.transform != null && !TargetIsActive(hitWallNextThis))
+                {
+                    hitWallNextThis.transform.gameObject.GetComponent<WallController>().Hightlight();
+                }
+
                 _spriteRenderer.enabled = true;
                 _spriteRenderer.sprite = WallSelected;
             }
@@ -75,6 +94,13 @@ public class WallController : MonoBehaviour
                 _spriteRenderer.enabled = false;
             }
         }
+    }
+
+    private bool TargetIsActive(RaycastHit2D raycastHit2D)
+    {
+        var target = raycastHit2D.collider.gameObject.GetComponent<WallController>();
+
+        return target == null || target.IsActive;
     }
 
     // Update is called once per frame
