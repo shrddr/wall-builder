@@ -4,6 +4,7 @@ using UnityEngine;
 public class WallController : MonoBehaviour
 {
     private ControlsManager _controlsManager;
+    private BoardManager _boardManager;
     private Collider2D _thisCollider;
     private SpriteRenderer _spriteRenderer;
 
@@ -21,6 +22,7 @@ public class WallController : MonoBehaviour
     private void Start ()
     {
         _controlsManager = GameObject.Find("GameManager").GetComponent<ControlsManager>();
+        _boardManager = GameObject.Find("GameManager").GetComponent<BoardManager>();
         _thisCollider = GetComponent<Collider2D>();
         _thisCollider.enabled = true;
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -53,60 +55,75 @@ public class WallController : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if(!IsActive)
+        if (IsActive) return;
+
+        if (WallType == WallType.Horizontal && _controlsManager.HorizontalWallDrag)
         {
-            if (WallType == WallType.Horizontal && _controlsManager.HorizontalWallDrag)
-            {
-                Vector2 start = transform.position;
-                var endDirNormalized = new Vector2(-1, 0);
-                Vector2 end = start + endDirNormalized;
+            Vector2 start = transform.position;
+            var endDirNormalized = new Vector2(-1, 0);
+            Vector2 end = start + endDirNormalized;
 
-                _thisCollider.enabled = false;
-                var hitWallNextThis = Physics2D.Linecast(start, end, BlockingLayer);
-                _thisCollider.enabled = true;
-                if (hitWallNextThis.transform != null && !TargetIsActive(hitWallNextThis))
-                {
-                    var pairWall = hitWallNextThis.transform.gameObject;
-                    pairWall.GetComponent<WallController>().Hightlight();
-                    _spriteRenderer.sprite = WallSelected;
-                    WallsToPlace = new WallPair { Wall1 = gameObject, Wall2 = pairWall };
-                }
-                else
-                {
-                    _spriteRenderer.sprite = WallDisabled;
-                    WallsToPlace = null;
-                }
+            _thisCollider.enabled = false;
+            var hitWallNextThis = Physics2D.Linecast(start, end, BlockingLayer);
+            _thisCollider.enabled = true;
 
-                _spriteRenderer.enabled = true;
-            }
-            else if (WallType == WallType.Vertical && _controlsManager.VerticalWallDrag)
-            {
-                Vector2 start = transform.position;
-                var endDirNormalized = new Vector2(0, 1);
-                Vector2 end = start + endDirNormalized;
+            var pairWall = hitWallNextThis.transform.gameObject;
+            var x1 = transform.position.x;
+            var y1 = transform.position.y;
+            var x2 = pairWall.transform.position.x;
+            var y2 = pairWall.transform.position.y;
 
-                _thisCollider.enabled = false;
-                var hitWallNextThis = Physics2D.Linecast(start, end, BlockingLayer);
-                _thisCollider.enabled = true;
-                if (hitWallNextThis.transform != null && !TargetIsActive(hitWallNextThis))
-                {
-                    var pairWall = hitWallNextThis.transform.gameObject;
-                    pairWall.GetComponent<WallController>().Hightlight();
-                    _spriteRenderer.sprite = WallSelected;
-                    WallsToPlace = new WallPair {Wall1 = gameObject, Wall2 = pairWall};
-                }
-                else
-                {
-                    _spriteRenderer.sprite = WallDisabled;
-                    WallsToPlace = null;
-                }
-
-                _spriteRenderer.enabled = true;               
+            if (hitWallNextThis.transform != null &&
+                !TargetIsActive(hitWallNextThis) &&
+                _boardManager.CheckNewWall(false, x1, y1, x2, y2))
+            {   
+                pairWall.GetComponent<WallController>().Hightlight();
+                _spriteRenderer.sprite = WallSelected;
+                WallsToPlace = new WallPair { Wall1 = gameObject, Wall2 = pairWall };
             }
             else
             {
-                _spriteRenderer.enabled = false;
+                _spriteRenderer.sprite = WallDisabled;
+                WallsToPlace = null;
             }
+
+            _spriteRenderer.enabled = true;
+        }
+        else if (WallType == WallType.Vertical && _controlsManager.VerticalWallDrag)
+        {
+            Vector2 start = transform.position;
+            var endDirNormalized = new Vector2(0, 1);
+            Vector2 end = start + endDirNormalized;
+
+            _thisCollider.enabled = false;
+            var hitWallNextThis = Physics2D.Linecast(start, end, BlockingLayer);
+            _thisCollider.enabled = true;
+
+            var pairWall = hitWallNextThis.transform.gameObject;
+            var x1 = transform.position.x;
+            var y1 = transform.position.y;
+            var x2 = pairWall.transform.position.x;
+            var y2 = pairWall.transform.position.y;
+
+            if (hitWallNextThis.transform != null &&
+                !TargetIsActive(hitWallNextThis) &&
+                _boardManager.CheckNewWall(true, x1, y1, x2, y2))
+            {
+                pairWall.GetComponent<WallController>().Hightlight();
+                _spriteRenderer.sprite = WallSelected;
+                WallsToPlace = new WallPair {Wall1 = gameObject, Wall2 = pairWall};
+            }
+            else
+            {
+                _spriteRenderer.sprite = WallDisabled;
+                WallsToPlace = null;
+            }
+
+            _spriteRenderer.enabled = true;               
+        }
+        else
+        {
+            _spriteRenderer.enabled = false;
         }
     }
 

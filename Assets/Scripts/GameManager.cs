@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
         _scoreText.text = "Score: " + _score;
         _controlsManager.Initialize();
         _boardManager.SetupScene();
-        _playerManager.SetupPlayers();        
+        _playerManager.SetupPlayers();
     }
 
     public void GameOver()

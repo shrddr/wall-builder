@@ -8,11 +8,11 @@ public class ControlsManager : MonoBehaviour
     private Player _activePlayer;
     private bool _keypressEnded = true;
     private PlayerManager _playerManager;
+    private BoardManager _boardManager;
     private GameObject _dragableObject;
 
     public GameObject HorizontalDragable;
     public GameObject VerticalDragable;
-
 
     public bool HorizontalWallDrag { get; private set; }
     public bool VerticalWallDrag { get; private set; }
@@ -20,6 +20,7 @@ public class ControlsManager : MonoBehaviour
     public void Initialize()
     {
         _playerManager = GetComponent<PlayerManager>();
+        _boardManager = GameObject.Find("GameManager").GetComponent<BoardManager>();
     }
 
     public void SetActivePlayer(Player player)
@@ -120,9 +121,7 @@ public class ControlsManager : MonoBehaviour
     private void TryStopDrag()
     {
         if (Input.GetMouseButtonUp(0) && (HorizontalWallDrag || VerticalWallDrag))
-        {
-            HorizontalWallDrag = false;
-            VerticalWallDrag = false;
+        {   
             Destroy(_dragableObject);
             HidePlaceholders();
 
@@ -130,9 +129,20 @@ public class ControlsManager : MonoBehaviour
             {
                 WallController.WallsToPlace.Wall1.GetComponent<WallController>().ActivateWall();
                 WallController.WallsToPlace.Wall2.GetComponent<WallController>().ActivateWall();
+
+                _boardManager.AddWall(VerticalWallDrag,
+                                     WallController.WallsToPlace.Wall1.transform.position.x,
+                                     WallController.WallsToPlace.Wall1.transform.position.y);
+                _boardManager.AddWall(VerticalWallDrag,
+                                     WallController.WallsToPlace.Wall2.transform.position.x,
+                                     WallController.WallsToPlace.Wall2.transform.position.y);
+
                 WallController.WallsToPlace = null;
                 _playerManager.EndPlayerTurn();
             }
+
+            HorizontalWallDrag = false;
+            VerticalWallDrag = false;
         }
     }
 }

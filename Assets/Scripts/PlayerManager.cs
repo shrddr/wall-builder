@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
     private ControlsManager _controlsManager;
+    private BoardManager _boardManager;
     private Player _player1;
     private Player _player2;
     private GameObject _activePlayerText;
@@ -32,6 +33,7 @@ public class PlayerManager : MonoBehaviour
     {
         _activePlayerText = GameObject.Find("ActivePlayerText");
         _controlsManager = GetComponent<ControlsManager>();
+        _boardManager = GetComponent<BoardManager>();
 
         var player1Object = Instantiate(Player, Player1StartPosition, Quaternion.identity);
         var animator1 = player1Object.GetComponent<Animator>();
@@ -53,8 +55,13 @@ public class PlayerManager : MonoBehaviour
     {
         ActivePlayer = ActivePlayer == _player1 ? _player2 : _player1;
         _controlsManager.SetActivePlayer(ActivePlayer);
+
+        _boardManager.UpdatePlayer(1, _player1.transform.position.x, _player1.transform.position.y);
+        _boardManager.UpdatePlayer(2, _player2.transform.position.x, _player2.transform.position.y);
+
         _player1.Highlight(ActivePlayer == _player1);
         _player2.Highlight(ActivePlayer == _player2);
+
         if (ActivePlayer == _player1)
             SoundManager.instance.PlayGirl();
         else
